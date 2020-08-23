@@ -3,6 +3,8 @@ import serial
 import sys
 from mam20.logger import logger
 
+arduino: serial.Serial
+
 
 def available_ports():
     """
@@ -36,3 +38,22 @@ def available_ports():
             pass
     return result
 
+
+def set_serial(port: str):
+    global arduino
+    arduino = serial.Serial(port, baudrate=57600, timeout=100)
+    arduino.flush()
+
+
+def is_open() -> bool:
+    return arduino.is_open
+
+
+def read_serial() -> str:
+    package = str(arduino.readline())
+    logger.debug(package)
+    return package
+
+
+def write_serial(msg: str):
+    arduino.write(str)

@@ -1,11 +1,18 @@
 from threading import Thread
-from typing import Optional, Callable, Any, Iterable, Mapping
+
+import serial
+
+from mam20.logger import logger
+from mam20.serial.business import read_serial, write_serial, set_serial, is_open
 
 
 class CommunicationThread(Thread):
 
-    def __init__(self, serial_io_port: str, group: None = ..., target: Optional[Callable[..., Any]] = ...,
-                 name: Optional[str] = ...,
-                 args: Iterable[Any] = ..., kwargs: Mapping[str, Any] = ..., *, daemon: Optional[bool] = ...) -> None:
-        super().__init__(group, target, name, args, kwargs, daemon=daemon)
-        self.serial_io_port = serial_io_port
+    def __init__(self, serial_io_port: str) -> None:
+        Thread.__init__(self)
+        set_serial(serial_io_port)
+
+    def run(self):
+        logger.info('Communication thread started')
+        while is_open():
+            input = read_serial()
