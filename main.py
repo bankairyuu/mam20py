@@ -1,5 +1,5 @@
 import tkinter as tk
-from mam20.monitor.monitor_frame import MonitorFrame
+from mam20.monitor.monitor_frame import MainFrame
 from mam20.logger import logger
 
 logger.info('================================================================')
@@ -13,5 +13,5 @@ logger.info('==           those rights are necessary!')
 logger.info('================================================================')
 logger.debug('create root for GUI')
 root = tk.Tk()
-monitor = MonitorFrame(master=root)
-monitor.mainloop()
+mainFrame = MainFrame(master=root)
+mainFrame.mainloop()
