@@ -6,6 +6,23 @@ from mam20.logger import logger
 arduino: serial.Serial
 
 
+class ArduinoDataPack:
+    def __init__(self, package: bytes):
+        decoded = str(bin(int.from_bytes(package, byteorder=sys.byteorder)))
+        logger.debug(decoded)
+
+        self.s1 = 0
+        self.s2 = 0
+        self.s3 = 0
+        self.s4 = 0
+        self.b1 = 0
+        self.b2 = 0
+        self.pot_meter = 128
+
+    def to_bytes(self):
+        pass
+
+
 def available_ports():
     """
     Lists serial port names
@@ -49,10 +66,8 @@ def is_open() -> bool:
     return arduino.is_open
 
 
-def read_serial() -> str:
-    package = str(arduino.read(size=4))
-    logger.debug(package)
-    return package
+def read_serial() -> ArduinoDataPack:
+    return ArduinoDataPack(arduino.read(size=4))
 
 
 def write_serial(msg: str):
