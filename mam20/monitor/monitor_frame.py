@@ -15,11 +15,11 @@ class MainFrame(Frame):
 
         # choose the serial I/O port
         logger.debug('choosing the serial I/O port to use')
-        ioport = self.connect_serial()
-        if ioport is None:
+        io_port = self.connect_serial()
+        if io_port is None:
             logger.warning('No Serial I/O port is selected!!!')
         else:
-            logger.info('Serial I/O port to use is: ' + ioport)
+            logger.info('Serial I/O port to use is: ' + io_port)
 
         # append the GUI subwidgets
         self.create_widgets()

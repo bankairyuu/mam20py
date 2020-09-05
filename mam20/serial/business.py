@@ -50,7 +50,7 @@ def is_open() -> bool:
 
 
 def read_serial() -> str:
-    package = str(arduino.readline())
+    package = str(arduino.read(size=4))
     logger.debug(package)
     return package
 
