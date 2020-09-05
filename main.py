@@ -10,7 +10,7 @@ if __name__ == '__main__':
     logger.info('==     Be sure, that the application is running     ==')
     logger.info('==     with sudo/administration rights, because     ==')
     logger.info('==          to detect the serial I/O ports,         ==')
-    logger.info('==           those rights are necessary!            ==')
+    logger.info('==            those rights are necessary!           ==')
     logger.info('======================================================')
     logger.debug('create root for GUI')
     root = tk.Tk()
