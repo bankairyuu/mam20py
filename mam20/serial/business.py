@@ -8,16 +8,22 @@ arduino: serial.Serial
 
 class ArduinoDataPack:
     def __init__(self, package: bytes):
-        decoded = str(bin(int.from_bytes(package, byteorder=sys.byteorder)))
+        decoded = str(bin(int.from_bytes(package, byteorder='big')))
         logger.debug(decoded)
 
-        self.s1 = 0
-        self.s2 = 0
-        self.s3 = 0
-        self.s4 = 0
-        self.b1 = 0
-        self.b2 = 0
-        self.pot_meter = 128
+        self.b1 = True if decoded[-21] == '0' else False
+        self.b2 = True if decoded[-22] == '0' else False
+        self.s1 = True if decoded[-20] == '1' else False
+        self.s2 = True if decoded[-19] == '1' else False
+        self.s3 = True if decoded[-18] == '1' else False
+        self.s4 = True if decoded[-17] == '1' else False
+        self.pot_meter = int(decoded[-16:], 2)
+        logger.debug('switches: ' + str(self.s1) + ' ' + str(self.s2) + ' ' + str(self.s3) + ' ' + str(self.s4))
+        logger.debug('buttons : ' + str(self.b1) + ' ' + str(self.b2))
+        logger.debug('potmeter: ' + str(self.pot_meter))
+
+        self.header = decoded[2:-24]
+        logger.debug('header: ' + self.header)
 
     def to_bytes(self):
         pass
