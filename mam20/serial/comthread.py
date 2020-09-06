@@ -3,7 +3,7 @@ from threading import Thread
 import serial
 
 from mam20.logger import logger
-from mam20.serial.business import read_serial, write_serial, set_serial, is_open
+from mam20.serial.business import read_serial, write_serial, set_serial, is_open, calculate_output
 
 
 class CommunicationThread(Thread):
@@ -15,4 +15,4 @@ class CommunicationThread(Thread):
     def run(self):
         logger.info('Communication thread started')
         while is_open():
-            input = read_serial()
+            write_serial(calculate_output(read_serial()))

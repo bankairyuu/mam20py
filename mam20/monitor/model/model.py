@@ -35,3 +35,20 @@ class RemoteState:
         self.button1 = b1
         self.button2 = b2
         self.pot_meter = pot_meter
+
+
+class LcdQueue:
+    def __init__(self):
+        self.data = []
+
+    def append(self, data):
+        self.data.append(data)
+
+    def pop(self):
+        return self.data.pop(0)
+
+    def is_waiting(self):
+        return True if len(self.data) > 0 else False
+
+
+lcd_queue = LcdQueue()
